@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1280mm"
+   height="720mm"
+   viewBox="0 0 1280 720.00004"
+   version="1.1"
+   id="svg138"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   sodipodi:docname="mainlogo.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs14">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient3076-6">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop5948" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="0.1"
+         id="stop5949" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0;"
+         offset="0.9"
+         id="stop5950" />
+      <stop
+      style="stop-color:#ffffff;stop-opacity:1;"
+      offset="1"
+      id="stop5951" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3076-6"
+       id="linearGradient6220"
+       gradientUnits="userSpaceOnUse"
+       x1="0"
+       y1="360"
+       x2="1280"
+       y2="360" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview140"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="true"
+     units="mm"
+     width="1280px"
+     inkscape:snap-intersection-paths="false"
+     inkscape:snap-grids="true"
+     inkscape:object-nodes="false"
+     inkscape:snap-nodes="false"
+     inkscape:snap-bbox="false"
+     inkscape:snap-bbox-midpoints="false"
+     inkscape:zoom="0.33670436"
+     inkscape:cx="2669.9981"
+     inkscape:cy="1216.2005"
+     inkscape:window-width="3840"
+     inkscape:window-height="2081"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1"
+     inkscape:snap-global="true"
+     showguides="true"
+     inkscape:guide-bbox="true"
+     inkscape:snap-others="false"
+     inkscape:snap-to-guides="false"
+     inkscape:bbox-paths="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid247" />
+    <sodipodi:guide
+       position="-111.125,444.83337"
+       orientation="0,-1"
+       id="guide1042" />
+  </sodipodi:namedview>
+  <g
+     inkscape:label="图层 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     style="display:inline">
+    <rect
+       style="fill:none;fill-opacity:1;stroke:none;stroke-width:5.05054;stroke-opacity:1"
+       id="rect20855"
+       width="1280"
+       height="720"
+       x="0"
+       y="0"
+       inkscape:label="ract-background" />
+    <line
+       x1="640"
+       y1="0"
+       x2="640"
+       y2="720"
+       stroke="#ff0000"
+       id="line222"
+       style="display:inline;stroke-width:0.999999" />
+    <line
+       x1="0"
+       y1="360"
+       x2="1280"
+       y2="360"
+       stroke="#ff0000"
+       id="line224"
+       style="display:inline;stroke-width:0.999999" />
+    <pa  th
+       d="M 692.21772,354.97716 C 683.431,346.818 669.01405,337.91087 645.4037,326.0545 c -12.2202,-6.13658 -24.70444,-12.82421 -27.7428,-14.86133 -3.03835,-2.03713 -5.67959,-3.54854 -5.8695,-3.35875 -1.58992,1.58971 7.77425,10.17484 16.31685,14.95946 l 7.25769,4.06496 -10.88653,0.009 c -13.48562,0.009 -22.84835,1.40039 -37.90118,5.63584 -9.55171,2.68773 -28.60216,7.26208 -30.24333,7.26208 -0.22001,0 -0.40035,-33.60425 -0.40035,-74.67619 v -74.67775 l 5.44326,0.55326 c 2.99377,0.30431 8.95903,1.25605 13.25605,2.11485 49.23773,9.8409 99.22663,56.97916 132.89598,125.31738 6.51915,13.23179 15.19055,33.8084 16.56478,39.30688 l 0.55417,2.2173 -13.59472,-0.0363 -13.5948,-0.0363 z"
+       id="path226"
+       style="display:inline;stroke-width:1.06667"
+       inkscape:label="path-logo" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:22.5778px;line-height:1.25;font-family:Arial;-inkscape-font-specification:'Arial, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;display:inline;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
+       id="text3104"
+       inkscape:label="text-band"><textPath
+         xlink:href="#path19933"
+         id="textPath949">Baku Public House since 2020</textPath></text>
+    <path
+       id="path19933"
+       style="fill:none;stroke:none;stroke-width:3.39277;stroke-opacity:1"
+       d="M 505.30944,192.46259 A 158.29286,158.31529 76.492581 0 1 723.01479,140.196 158.29286,158.31529 76.492581 0 1 775.2739,357.87068 158.29286,158.31529 76.492581 0 1 557.56845,410.13723 158.29286,158.31529 76.492581 0 1 505.30944,192.46259 Z"
+       inkscape:label="path-circle" />
+    <rect
+       style="fill:#4d4d4d;fill-opacity:0.848564;stroke-width:3.83502"
+       id="rect137"
+       width="1280"
+       height="180"
+       x="0"
+       y="540.09998" />
+    <rect
+       style="display:inline;fill:url(#linearGradient6220);fill-opacity:1;stroke:none;stroke-width:5.05054;stroke-opacity:1"
+       id="rect20855-0"
+       width="1280"
+       height="720"
+       x="0"
+       y="0"
+       inkscape:label="ract-foreground" />
+  </g>
+</svg>
