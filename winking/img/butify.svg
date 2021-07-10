@@ -1,32 +1,22 @@
-</svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" height={vh+"px"} width={vw+"px"} id="pub-hero-svg">
-<defs>
-    <g id="baku-sign">
-        <!-- center 640 720-->
-        <path id="path-baku-head"
-            d="m 691.92605,349.81051 c -8.78672,-8.15916 -23.20367,-17.06629 -46.81402,-28.92266 -12.2202,-6.13658 -24.70444,-12.82421 -27.7428,-14.86133 -3.03835,-2.03713 -5.67959,-3.54854 -5.8695,-3.35875 -1.58992,1.58971 7.77425,10.17484 16.31685,14.95946 l 7.25769,4.06496 -10.88653,0.009 c -13.48562,0.009 -22.84835,1.40039 -37.90118,5.63584 -9.55171,2.68773 -28.60216,7.26208 -30.24333,7.26208 -0.22001,0 -0.40035,-33.60425 -0.40035,-74.67619 v -74.67775 l 5.44326,0.55326 c 2.99377,0.30431 8.95903,1.25605 13.25605,2.11485 49.23773,9.8409 99.22663,56.97916 132.89598,125.31738 6.51915,13.23179 15.19055,33.8084 16.56478,39.30688 l 0.55417,2.2173 -13.59472,-0.0363 -13.5948,-0.0363 z" />
-        <text style={{fontWeight:"bold",fontSize:"22.5778px",fill:"black"}} id="text3104">
-            <textPath id="text-baku-title" href="#path-ring">Baku Public House since 2020</textPath>
-        </text>
-        <path id="path-ring" fill="none" stroke="none"
-            d="M 505.01777,187.29594 A 158.29286,158.31529 76.492581 0 1 722.72312,135.02935 158.29286,158.31529 76.492581 0 1 774.98223,352.70403 158.29286,158.31529 76.492581 0 1 557.27678,404.97058 158.29286,158.31529 76.492581 0 1 505.01777,187.29594 Z" />
-    </g>
-    <pattern patternUnits="userSpaceOnUse" id="tex-background" height="100" width="100">
-        <image href="/texture/80lb-Felt-Sand-Stone.jpg" height="100" width="100"></image>
-    </pattern>
-    <filter id="shader-daily">
-        <feColorMatrix in="SourceGraphic" type="luminanceToAlpha" result="shader-daily-bump" />
-        <feDiffuseLighting in="bump-background" result="lighting-lamp">
-            <feSpotLight x="640" y="0" z="30" limitingConeAngle="30" pointsAtX="640" pointsAtY="720" pointsAtZ="0" id="topLamp"/>
-        </feDiffuseLighting>
-    </filter>
-</defs>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-<rect id="rect-background" height="720" width="1280" fill="url(#tex-background)"
-    style={{filter:isDarkTheme?"url(#dark-shader-background)":"url(#light-shader-background)"}} />
-<use href="#baku-sign" />
+<svg width="1280mm" height="720mm" viewBox="0 0 1280 720.00004" version="1.1" id="svg138"
+   xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+   <rect fill="#FAD6B1" id="rect-cab" width="640" height="375" x="0" y="30" />
+   <rect fill="#FAD6B1" id="rect-cab-flat" width="640" height="15" x="0" y="405" />
+   <rect fill="#FAD6B1" id="rect-cab-top" width="640" height="30" x="0" y="0" />
+   <rect fill="#FAD6B1" id="rect-cab-front" width="640" height="30" x="0" y="420" />
+   <rect fill="#FAD6B1" id="rect-table-top" width="640" height="90" x="0" y="450" />
+   <rect fill="#FAD6B1" id="rect-table-front" width="640" height="180" x="0" y="540" />
 
-<rect id="rect-table" width="1280" height="180" x="0" y="540" />
-
-<rect id="rect-foreground" fill="none" width="1280" height="720" x="0" y="0" />
+   <g id="baku-logo">
+      <path id="baku-path"
+         d="m 671.98645,191.37241 c -5.41263,-5.02604 -14.29347,-10.51283 -28.83744,-17.81636 -7.52765,-3.78013 -15.21794,-7.89972 -17.08957,-9.15458 -1.87162,-1.25487 -3.49862,-2.1859 -3.61561,-2.06899 -0.97939,0.97926 4.78894,6.2677 10.05118,9.21502 l 4.47074,2.50402 -6.7061,0.005 c -8.30714,0.005 -14.07459,0.86264 -23.34713,3.47168 -5.88385,1.65564 -17.61893,4.47344 -18.62989,4.47344 -0.13552,0 -0.24662,-20.70021 -0.24662,-46.00054 V 90 l 3.35305,0.34081 c 1.84417,0.187456 5.51877,0.773726 8.16573,1.302747 30.33044,6.061995 61.12361,35.099163 81.86393,77.195513 4.01579,8.15078 9.35737,20.82597 10.2039,24.21303 l 0.34137,1.36586 -8.37435,-0.0223 -8.3744,-0.0223 z" />
+      <text id="baku-text" x="639.74115" y="191.74371" id="">
+         <tspan x="639.74115" y="191.74371">Baku</tspan>
+         <tspan x="639.74115" y="204.97284">PublicHouse</tspan>
+      </text>
+   </g>
 
 </svg>
