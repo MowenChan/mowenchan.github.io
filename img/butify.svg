@@ -3,20 +3,16 @@
 
 <svg width="1280mm" height="720mm" viewBox="0 0 1280 720.00004" version="1.1" id="svg138"
    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-   <rect fill="#FAD6B1" id="rect-cab" width="640" height="375" x="0" y="30" />
-   <rect fill="#FAD6B1" id="rect-cab-flat" width="640" height="15" x="0" y="405" />
-   <rect fill="#FAD6B1" id="rect-cab-top" width="640" height="30" x="0" y="0" />
-   <rect fill="#FAD6B1" id="rect-cab-front" width="640" height="30" x="0" y="420" />
-   <rect fill="#FAD6B1" id="rect-table-top" width="640" height="90" x="0" y="450" />
-   <rect fill="#FAD6B1" id="rect-table-front" width="640" height="180" x="0" y="540" />
-
-   <g id="baku-logo">
-      <path id="baku-path"
-         d="m 671.98645,191.37241 c -5.41263,-5.02604 -14.29347,-10.51283 -28.83744,-17.81636 -7.52765,-3.78013 -15.21794,-7.89972 -17.08957,-9.15458 -1.87162,-1.25487 -3.49862,-2.1859 -3.61561,-2.06899 -0.97939,0.97926 4.78894,6.2677 10.05118,9.21502 l 4.47074,2.50402 -6.7061,0.005 c -8.30714,0.005 -14.07459,0.86264 -23.34713,3.47168 -5.88385,1.65564 -17.61893,4.47344 -18.62989,4.47344 -0.13552,0 -0.24662,-20.70021 -0.24662,-46.00054 V 90 l 3.35305,0.34081 c 1.84417,0.187456 5.51877,0.773726 8.16573,1.302747 30.33044,6.061995 61.12361,35.099163 81.86393,77.195513 4.01579,8.15078 9.35737,20.82597 10.2039,24.21303 l 0.34137,1.36586 -8.37435,-0.0223 -8.3744,-0.0223 z" />
-      <text id="baku-text" x="639.74115" y="191.74371" id="">
-         <tspan x="639.74115" y="191.74371">Baku</tspan>
-         <tspan x="639.74115" y="204.97284">PublicHouse</tspan>
-      </text>
-   </g>
+   <rect
+      style="display:inline;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+      id="rect8734" width="103" height="103" x="0.00149022" y="0.0229878" />
+   <path
+      d="M 0.00149022,0.0229878 C 15.7406,1.0454478 30.80611,7.2129348 43.39741,16.585315 c 24.63119,18.24035 42.08157,44.64467 54.16511,72.484 1.67886,4.40472 4.94622,13.903575 4.94622,13.903575 V 0.0229878 Z"
+      style="display:inline;fill:#ffffff;stroke:none;stroke-width:0.0459756;stroke-opacity:1;fill-opacity:1"
+      id="path8233" inkscape:label="path-top" />
+   <path
+      d="M 84.898928,102.94984 C 77.447448,95.51643 68.296278,90.17654 58.94585,85.48968 50.62261,81.34265 42.34309,77.02941 34.36431,72.29737 c 1.48892,4.32147 6.5129,6.87947 10.30079,9.35308 0.89857,0.70573 4.53776,2.12567 3.63061,2.36082 C 38.66739,83.79763 28.94885,84.32729 19.69929,87.24612 13.25365,88.99558 6.7853703,90.7248 0.21967024,91.95695 L 0.02340024,103 Z"
+      style="display:inline;fill:#ffffff;stroke:none;stroke-width:0.0459756;stroke-opacity:1;fill-opacity:1"
+      id="path7578" sodipodi:nodetypes="ccccccccc" inkscape:label="path-bottom" />
 
 </svg>
