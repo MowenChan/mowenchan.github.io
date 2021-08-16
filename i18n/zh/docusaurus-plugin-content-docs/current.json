@@ -1,0 +1,114 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.Portal_map.category.Portal": {
+    "message": "传送门",
+    "description": "The label for category Portal in sidebar Portal_map"
+  },
+  "sidebar.se_dbms.category.dbms": {
+    "message": "数据库管理系统",
+    "description": "The label for category dbms in sidebar se_dbms"
+  },
+  "sidebar.se_dbms.category.mysql": {
+    "message": "MySQL",
+    "description": "The label for category mysql in sidebar se_dbms"
+  },
+  "sidebar.se_dbms.category.oracle": {
+    "message": "Oracle",
+    "description": "The label for category oracle in sidebar se_dbms"
+  },
+  "sidebar.se_dbms.category.redis": {
+    "message": "Redis",
+    "description": "The label for category redis in sidebar se_dbms"
+  },
+  "sidebar.se_middleware.category.middleware": {
+    "message": "中间件",
+    "description": "The label for category middleware in sidebar se_middleware"
+  },
+  "sidebar.se_middleware.category.active_mq": {
+    "message": "ActiveMQ",
+    "description": "The label for category active_mq in sidebar se_middleware"
+  },
+  "sidebar.se_middleware.category.kafka": {
+    "message": "Kafka",
+    "description": "The label for category kafka in sidebar se_middleware"
+  },
+  "sidebar.se_middleware.category.nginx": {
+    "message": "Nginx",
+    "description": "The label for category nginx in sidebar se_middleware"
+  },
+  "sidebar.se_middleware.category.rabbit_mq": {
+    "message": "RabbitMQ",
+    "description": "The label for category rabbit_mq in sidebar se_middleware"
+  },
+  "sidebar.se_middleware.category.rocket_mq": {
+    "message": "RocketMQ",
+    "description": "The label for category rocket_mq in sidebar se_middleware"
+  },
+  "sidebar.se_network.category.network": {
+    "message": "网络",
+    "description": "The label for category network in sidebar se_network"
+  },
+  "sidebar.se_os.category.os": {
+    "message": "操作系统",
+    "description": "The label for category os in sidebar se_os"
+  },
+  "sidebar.se_os.category.linux": {
+    "message": "Linux",
+    "description": "The label for category linux in sidebar se_os"
+  },
+  "sidebar.se_os.category.msdos": {
+    "message": "MsDos",
+    "description": "The label for category msdos in sidebar se_os"
+  },
+  "sidebar.se_os.category.unix": {
+    "message": "Unix",
+    "description": "The label for category unix in sidebar se_os"
+  },
+  "sidebar.se_programming.category.programming": {
+    "message": "程序",
+    "description": "The label for category programming in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.pattern": {
+    "message": "设计模式",
+    "description": "The label for category pattern in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.tech": {
+    "message": "编程技术",
+    "description": "The label for category tech in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.cpp": {
+    "message": "C++",
+    "description": "The label for category cpp in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.css": {
+    "message": "CSS",
+    "description": "The label for category css in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.html": {
+    "message": "HTML",
+    "description": "The label for category html in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.java": {
+    "message": "Java",
+    "description": "The label for category java in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.java_script": {
+    "message": "JavaScript",
+    "description": "The label for category java_script in sidebar se_programming"
+  },
+  "sidebar.se_programming.category.type_script": {
+    "message": "TypeScript",
+    "description": "The label for category type_script in sidebar se_programming"
+  },
+  "sidebar.se_vcs.category.vcs": {
+    "message": "版本控制",
+    "description": "The label for category vcs in sidebar se_vcs"
+  },
+  "sidebar.se_vcs.category.git": {
+    "message": "Git",
+    "description": "The label for category git in sidebar se_vcs"
+  }
+}

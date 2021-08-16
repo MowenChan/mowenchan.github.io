@@ -1,0 +1,41 @@
+---
+sidebar_position: -1
+---
+
+# 软件工程
+
+- 操作系统
+  -  [Linux](os/linux/summaries)
+- 程序
+  - 语言
+    - C
+    - [Java](programming/tech/java/summaries)
+    - [C++](programming/tech/cpp/summaries)
+    - Go
+    - [JavaScript](programming/tech/java_script/summaries)
+    - [TypeScript](programming/tech/type_script/summaries)
+    - [HTML](programming/tech/html/summaries)
+    - [CSS](programming/tech/css/summaries)
+  - 设计模式
+    - 工厂模式
+    - 抽象工厂
+  - 开发模型
+    - 瀑布
+    - V模型
+    - 增量迭代
+      - 
+    - 螺旋
+    - 统一过程
+    - 
+- 授权
+  - [OAuth2](authorization/oauth2)
+- [加密](crypto/summaries)
+  - 
+- 数据库管理
+  - [MySQL](dbms/mysql/index)
+- 网络
+  - [摘要](network/summaries)
+- 版本控制
+  - 
+- 中间件
+  - sss

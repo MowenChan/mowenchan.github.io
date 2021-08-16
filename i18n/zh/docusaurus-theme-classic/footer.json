@@ -1,0 +1,42 @@
+{
+  "link.title.License": {
+    "message": "本站遵循",
+    "description": "The title of the footer links column with title=License in the footer"
+  },
+  "link.title.Community": {
+    "message": "联系",
+    "description": "The title of the footer links column with title=Community in the footer"
+  },
+  "link.title.Social": {
+    "message": "社交网站",
+    "description": "The title of the footer links column with title=Social in the footer"
+  },
+  "link.title.More": {
+    "message": "更多",
+    "description": "The title of the footer links column with title=More in the footer"
+  },
+  "link.title.Friend Links": {
+    "message": "友链",
+    "description": "The title of the footer links column with title=Friend Links in the footer"
+  },
+  "link.item.label.mail": {
+    "message": "邮箱",
+    "description": "The label of footer link with label=mail linking to mailto: trace.chen.job@outlook.com"
+  },
+  "link.item.label.GitHub": {
+    "message": "GitHub",
+    "description": "The label of footer link with label=GitHub linking to https://github.com/MowenChan"
+  },
+  "link.item.label.Gitee": {
+    "message": "Gitee",
+    "description": "The label of footer link with label=Gitee linking to https://gitee.com/lawmoe"
+  },
+  "link.item.label.Carrgan Universe": {
+    "message": "Carrgan Universe",
+    "description": "The label of footer link with label=Carrgan Universe linking to https://carrgan.github.io/"
+  },
+  "copyright": {
+    "message": "<p>Copyright © 2021-2021 BakuPub.<p>Built with <a href=\"https://docusaurus.io/\">Docusaurus</a>.</p>",
+    "description": "The footer copyright"
+  }
+}
