@@ -1,0 +1,1314 @@
+%					-*- LaTeX -*-
+\documentclass{article}
+\title{Bourne Shell Programming}
+\author{Andrew Arensburger}
+
+\newcommand{\heading}[1]{%
+  \begin{center}
+    \large\textbf{\underline{#1}}
+  \end{center}
+  \vspace{1ex minus 1ex}}
+\newcommand{\fname}[1]{\textsl{#1}}
+\newcommand{\cmd}[1]{\textit{#1}}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\bs}{\symbol{"5C}}
+
+\newcommand{\sh}{\code{sh}}
+
+\newlength{\slidewidth}
+\newlength{\slideheight}
+%\setlength{\slidewidth}{\paperwidth}
+%\divide\slidewidth by 3
+%\setlength{\slideheight}{\paperheight}
+%\divide\slideheight by 3
+\setlength{\slidewidth}{\textwidth}
+\addtolength{\slidewidth}{-1cm}
+
+% Straight from the LaTeXbook
+\newsavebox{\savepar}
+\newenvironment{boxit}{%
+  \begin{lrbox}{\savepar}
+  \begin{minipage}[b]{\slidewidth}%
+}{
+  \end{minipage}
+  \end{lrbox}
+  \fbox{\usebox{\savepar}}
+}
+
+% A fairly bogus 'slide' environment. Just enough to get by.
+\newcommand{\slidecaption}{}
+\newenvironment{slide}[1]{%
+\renewcommand\figurename{Slide}
+\renewcommand{\slidecaption}{#1}
+\bigskip
+%\begin{figure}
+\begin{boxit}
+\heading{\slidecaption}
+}{%
+\end{boxit}
+% XXX
+%\caption{\slidecaption}
+%\end{figure}
+\bigskip
+}
+
+\begin{document}
+\maketitle
+%\raggedright
+
+\section{Justification}
+
+	Why bother to learn shell programming, when you could be out
+there rollerblading or trying to get a date?
+
+	Because, in a word, it's useful.
+
+	Many standard utilities (\cmd{rdist}, \cmd{make}, \cmd{cron},
+etc.) allow you to specify a command to run at a certain
+time. Usually, this command is simply passed to the Bourne shell,
+which means that you can execute whole scripts, should you choose to
+do so.
+
+	Lastly, Unix%
+\footnote{Unix is a registered trademark of The Open Group.}
+runs Bourne shell scripts when it boots. If you
+want to modify the boot-time behavior of a system, you need to learn
+to write and modify Bourne shell scripts.
+
+\section{What's it all about?}
+
+	First of all, what's a shell? Under Unix, a shell is a command
+interpreter. That is, it reads commands from the keyboard and executes
+them.
+
+	Furthermore, and this is what this tutorial is all about, you
+can put commands in a file and execute them all at once. This is known
+as a script (see Slide \ref{simple-script}).
+
+\begin{slide}{A Simple Script}
+\label{simple-script}
+
+\begin{verbatim}
+#!/bin/sh
+# Rotate procmail log files
+cd /homes/arensb/Mail
+rm procmail.log.6       # This is redundant
+mv procmail.log.5 procmail.log.6
+mv procmail.log.4 procmail.log.5
+mv procmail.log.3 procmail.log.4
+mv procmail.log.2 procmail.log.3
+mv procmail.log.1 procmail.log.2
+mv procmail.log.0 procmail.log.1
+mv procmail.log procmail.log.0
+\end{verbatim}
+\end{slide}
+
+	There are several things to note here: first of all, comments
+begin with a hash (\code{\#}) and continue to the end of the line (the
+first line is special, and we'll cover that in just a moment).
+
+	Secondly, the script itself is just a series of commands. I
+use this script to rotate log files, as it says. I could just as
+easily have typed these commands in by hand, but I'm lazy, and I don't
+feel like it. Plus, if I did, I might make a typo at the wrong moment
+and really make a mess.
+
+\section{\code{\#!/bin/sh}}
+
+	The first line of any script must begin with \code{\#!},
+followed by the name of the interpreter%
+\footnote{Some versions of Unix allow whitespace between \code{\#!}
+and the name of the interpreter. Others don't. Hence, if you want your
+script to be portable, leave out the blank.}
+
+	A script, like any file that can be run as a command, needs to
+be executable: save this script as \fname{rotatelog} and run
+\begin{quote}
+\code{chmod +x rotatelog}
+\end{quote}
+to make it executable. You can now run it by running
+\begin{quote}
+\code{./rotatelog}
+\end{quote}
+
+	Unlike some other operating systems, Unix allows any program
+to be used as a script interpreter. This is why people talk about ``a
+Bourne shell script'' or ``an awk script.'' One might even write a
+\cmd{more} script, or an \cmd{ls} script (though the latter
+wouldn't be terribly useful). Hence, it is important to let Unix know
+which program will be interpreting the script.
+
+	When Unix tries to execute the script, it sees the first two
+characters (\code{\#!}) and knows that it is a script. It then reads
+the rest of the line to find out which program is to execute the
+script. For a Bourne shell script, this will be \code{/bin/sh}. Hence,
+the first line of our script must be
+
+\begin{quote}
+\code{\#!/bin/sh}
+\end{quote}
+
+	After the command interpreter, you can have one, and sometimes
+more, options. Some flavors of Unix only allow one, though, so don't
+assume that you can have more.
+
+	\label{os-script}Once Unix has found out which program will be
+acting as the interpreter for the script, it runs that program, and
+passes it the name of the script on the command line. Thus, when you
+run \code{./rotatelog}, it behaves exactly as if you had run
+\code{/bin/sh ./rotatelog}.
+
+\section{Variables}
+
+	\sh\ allows you to have variables, just like any programming
+languages. Variables do not need to be declared. To set a \sh\
+variable, use
+\begin{quote}
+VAR=\textsl{value}
+\end{quote}
+and to use the value of the variable later, use
+\begin{quote}
+\$VAR
+\end{quote}
+or
+\begin{quote}
+\$\{VAR\}
+\end{quote}
+
+	The latter syntax is useful if the variable name is
+immediately followed by other text:
+
+\begin{slide}{\$VAR and \$\{VAR\}}
+\begin{verbatim}
+#!/bin/sh
+COLOR=yellow
+
+echo This looks $COLORish
+echo This seems ${COLOR}ish
+\end{verbatim}
+\bigskip
+\hrule
+\bigskip
+\begin{verbatim}
+% ./color
+This looks
+This seems yellowish
+\end{verbatim}
+\end{slide}
+
+	There is only one type of variable in \sh: strings. This is
+somewhat limited, but is sufficient for most purposes.
+
+\subsection{Local vs. environment variables}
+
+	A \sh\ variable can be either a local variable or an
+environment variable. They both work the same way; the only difference
+lies in what happens when the script runs another program (which, as
+we saw earlier, it does all the time).
+
+	Environment variables are passed to subprocesses. Local
+variables are not.
+
+	By default, variables are local. To turn a local variable into
+an environment variable, use
+\begin{quote}
+\code{export} VAR
+\end{quote}
+
+\begin{slide}{Variables}
+\label{var-example}
+
+\begin{verbatim}
+#!/bin/sh
+NETSCAPE_HOME=/usr/imports/libdata
+
+CLASSPATH=$NETSCAPE_HOME/classes
+export CLASSPATH
+
+$NETSCAPE_HOME/bin/netscape.bin
+\end{verbatim}
+\end{slide}
+
+\begin{sloppypar}
+	Slide \ref{var-example} shows a simple wrapper for a program,
+\fname{netscape.bin}. Here, \fname{NETSCAPE\_HOME} is a local variable;
+\fname{CLASSPATH} is an environment variable. \fname{CLASSPATH} will
+be passed to \fname{netscape.bin} (\fname{netscape.bin} uses the value
+of this variable to find Java class files);
+\fname{NETSCAPE\_HOME} is a
+convenience variable that is only used by the wrapper script;
+\fname{netscape.bin} doesn't need to know about it, so it is kept
+local.
+\end{sloppypar}
+
+	The only way to unexport a variable is to \code{unset} it:
+\begin{quote}
+\code{unset VAR}
+\end{quote}
+This removes the variable from the shell's symbol table, effectively
+making as if it had never existed; as a side effect, the variable is
+also unexported%
+\footnote{Also, if you have a function by the same name as the
+variable, \code{unset} will also delete that function}.
+
+	Since you may want to use this variable later, it is better
+not to define it in the first place.
+
+	Also, note that if a variable was passed in as part of the
+environment, it is already an environment variable when your script
+starts running. If there is a variable that you really don't want to
+pass to any subprocesses, you should \code{unset} it near the top of
+your script. This is rare, but it might conceivably happen.
+
+	If you refer to a variable that hasn't been defined, \sh\
+substitutes the empty string.
+
+\begin{slide}{Unset variables}
+\begin{verbatim}
+#!/bin/sh
+echo aaa $FOO bbb
+echo xxx${FOO}yyy
+\end{verbatim}
+\bigskip\hrule\bigskip
+\begin{verbatim}
+% ./none
+aaa bbb
+xxxyyy
+\end{verbatim}%$
+\end{slide}
+
+\subsection{Special variables}
+
+	\sh\ treats certain variables specially: some are set for you
+when your script runs, and some affect the way commands are
+interpreted.
+
+\begin{slide}{Special Variables}
+\begin{center}
+% Prevent itemized list from overflowing to the left of the margin
+\begingroup
+\settowidth{\leftmargini}{\code{\$1}, \code{\$2}\ldots\code{\$9}}
+\addtolength{\leftmargini}{1em}
+\begin{itemize}
+\item[\code{\$1}, \code{\$2}\ldots\code{\$9}]
+	Command-line arguments.
+\item[\code{\$0}]
+	Script name.
+\item[\code{\$*}, \code{\$@}]
+	All command-line arguments.
+\item[\code{\$\#}]
+	Number of command-line arguments.
+\item[\code{\$?}]
+	Exit status of last command.
+\item[\code{\$-}]
+	\sh\ options.
+\item[\code{\$\$}]
+	PID of the current process.
+\item[\code{\$|}]
+	PID of the last background command.
+\item[\code{\$IFS}]
+	Input Field Separator.
+\end{itemize}
+\endgroup
+\end{center}
+\end{slide}
+
+\subsubsection{Command-line arguments}
+
+	The most useful of these variables are the ones referring to
+the command-line arguments. \$1 refers to the first command-line
+argument (after the name of the script), \$2 refers to the second one,
+and so forth, up to \$9.
+
+	If you have more than nine command-line arguments, you can use
+the \code{shift} command: this discards the first command-line
+argument, and bumps the remaining ones up by one position.
+
+	The variable \$0 (zero) contains the name of the script
+(\code{argv[0]} in C programs).
+
+	Often, it is useful to just list all of the command-line
+arguments. For this, \sh\ provides the variables \$* (star) and \$@
+(at). Each of these expands to a string containing all of the
+command-line arguments, as if you had used \code{\$1 \$2 \$3}\ldots
+
+	The difference between \$* and \$@ lies in the way they behave
+when they occur inside double quotes (see Section
+\ref{double-quotes}): \$* behaves in the normal way, whereas \$@
+creates a separate double-quoted string for each command-line
+argument. That is, \code{"\$*"} behaves as if you had written
+\code{"\$1 \$2 \$3"}, whereas \code{"\$@"} behaves as if you had
+written \code{"\$1" "\$2" "\$3"}.
+
+	Finally, \$\# contains the number of command-line arguments
+that were given.
+
+\subsubsection{Other special variables}
+
+	\$? gives the exit status of the last command that was
+executed. This should be zero if the command exited normally.
+
+	\$- lists all of the options with which \sh\ was invoked. See
+\textbf{sh}(1) for details.
+
+	\$\$ holds the PID of the current process.
+
+	\$! holds the PID of the last command that was executed in the
+background.
+
+	\$IFS (Input Field Separator) determines how \sh\ splits
+strings into words.
+% XXX - Flesh this out.
+% XXX - Give an example.
+
+\subsection{Quasi-variable constructs}
+
+	The \$\{VAR\} construct is actually a special case of a more
+general class of constructs:
+
+\begingroup
+\settowidth{\leftmargini}{\code{\$\{}VAR\code{:?}[\textit{expression}]\code{\}}}
+\addtolength{\leftmargini}{1em}
+\begin{itemize}
+\item[\code{\$\{}VAR\code{:-}\textit{expression}\code{\}}]
+	Use default value: if VAR is set and non-null, expands to
+	\$VAR. Otherwise, expands to \textit{expression}.
+\item[\code{\$\{}VAR\code{:=}\textit{expression}\code{\}}]
+	Set default value: if VAR is set and non-null, expands to
+	\$VAR. Otherwise, sets VAR to \textit{expression} and expands
+	to \textit{expression}.
+\item[\code{\$\{}VAR\code{:?}[\textit{expression}]\code{\}}]
+	If VAR is set and non-null, expands to \$VAR. Otherwise,
+	prints \textit{expression} to standard error and exits with a
+	non-zero exit status.
+\item[\code{\$\{}VAR\code{:+}\textit{expression}\code{\}}]
+	\begin{sloppy}
+	If VAR is set and non-null, expands to the empty
+	string. Otherwise, expands to \textit{expression}.
+	\end{sloppy}
+\item[\code{\$\{\#}VAR\code{\}}]
+	Expands to the length of \$VAR.
+\end{itemize}
+\endgroup
+
+	The above patterns test whether VAR is set and
+non-null. Without the colon, they only test whether VAR is set.
+
+\section{Patterns and Globbing}
+
+	\label{glob}
+	\sh\ supports a limited form of
+pattern-matching. The operators are
+
+\begin{itemize}
+\item[\code{*}]
+	Matches zero or more characters.
+\item[\code{?}]
+	Matches exactly one character.
+\item[\code{[}\textit{range}\code{]}]
+	Matches any character in \textit{range}.
+\end{itemize}
+
+	When an expression containing these characters occurs in the
+middle of a command, \sh\ substitutes the list of all files whose name
+matches the pattern. This is known as ``globbing.'' Otherwise, these
+are used mainly in the \code{case} construct (see Section \ref{case}).
+
+	As a special case, when a glob begins with \code{*} or
+\code{?}, it does not match files that begin with a dot. To match
+these, you need to specify the dot explicitly (\textit{e.g.},
+\code{.*}, \code{/tmp/.*}).
+
+	Note to MS-DOS users: under MS-DOS, the pattern \code{*.*}
+matches every file. In \sh, it matches every file that contains a dot.
+
+\section{Quoting}
+% XXX - Slide
+
+	\label{quoting}If you say something like
+\begin{quote}
+\code{echo * MAKE\ \ \ \$\$\$\ \ \ FAST *}
+\end{quote}
+it won't do what you want: first of all, \sh\ will expand the
+\code{*}s and replace them with a list of all the files in the current
+directory. Then, since any number of tabs or blanks can separate
+words, it will compress the three spaces into one. Finally, it will
+replace the first instance of \code{\$\$} with the PID of the
+shell. This is where quoting comes in.
+
+	\sh\ supports several types of quotes. Which one you use
+depends on what you want to do.
+
+\subsection{Backslash}
+
+	Just as in C strings, a backslash (``\code{\bs}'')
+removes any special meaning from the character that follows. If the
+character after the backslash isn't special to begin with, the
+backslash has no effect.
+
+	The backslash is itself special, so to escape it, just double
+it: \code{\bs\bs}.
+
+\subsection{Single quotes}
+
+	Single quotes, such as
+\begin{quote}
+\code{'foo'}
+\end{quote}
+work pretty much the way you'd expect: anything inside them (except
+a single quote) is quoted. You can say
+\begin{quote}
+\code{echo '* MAKE\ \ \ \$\$\$\ \ \ FAST *'}
+\end{quote}
+and it'll come out the way you want it to.
+
+	Note that a backslash inside single quotes also loses its
+special meaning, so you don't need to double it. There is no way to
+have a single quote inside single quotes.
+
+\subsection{Double quotes}
+\label{double-quotes}
+	Double quotes, such as
+\begin{quote}
+\code{"foo"}
+\end{quote}
+preserve spaces and most special characters. However, variables and
+backquoted expressions (see Section \ref{backquote}) are expanded and
+replaced with their value.
+
+\subsection{Backquotes}
+\label{backquote}
+	If you have an expression within backquotes (also known as
+backticks), \textit{e.g.},
+\begin{quote}
+\code{`cmd`}
+\end{quote}
+the expression is evaluated as a command, and replaced with whatever
+the expression prints to its standard output. Thus,
+\begin{quote}
+\code{echo You are `whoami`}
+\end{quote}
+prints
+\begin{quote}
+\code{You are arensb}
+\end{quote}
+(if you happen to be me, which I do).
+
+\section{Built-in commands}
+
+	\sh\ understands several built-in commands, \textit{i.e.},
+commands that do not correspond to any program. These commands
+include:
+
+\begin{description}
+\item[\code{\{} \textit{commands} \code{; \}},\code{(}\textit{commands}\code{)}]
+	Execute \textit{commands} in a subshell. That is, run them as
+	if they were a single command. This is useful when I/O
+	redirection (see Section \ref{io-redirection}) is involved,
+	since you can pipe data to or from a mini-script inside a
+	pipeline.
+
+	The \textit{\{}~\textit{commands}\code{; \}} variant is
+	somewhat more efficient, since it doesn't spawn a true
+	subshell. This also means that if you set variables inside of
+	it, the changes will be visible in the rest of the script.
+\item[\code{:} (colon)]
+	Does nothing. This is generally seen as
+	\begin{quote}
+	\code{: \$\{}VAR\code{:=}\textit{default}\code{\}}
+	\end{quote}
+\item[\code{.} \textit{filename}]
+	The dot command reads in the specified filename, as if it had
+	occurred at that place in the script.
+\item[\code{bg} {[\textit{job}]}, \code{fg} {[\textit{job}]}]
+	\code{bg} runs the specified job (or the current job, if none
+	is specified) in the background. \code{fg} resumes the
+	specified job (or the current job, if none is specified) in
+	the foreground. Jobs are specified as
+	\code{\%}\textit{number}. The \code{jobs} command lists jobs.
+\item[\code{cd} {[\textit{dir}]}]
+	Sets the current directory to \textit{dir}. If \textit{dir} is
+	not specified, sets the current directory to the home
+	directory.
+\item[\code{pwd}]
+	Prints the current directory.
+\item[\code{echo} {[\textit{args}]}]
+	Prints \textit{args} to standard output.
+\item[\code{eval} \textit{args}]
+	Evaluates \textit{args} as a \sh\ expression. This allows you
+	to construct a string on the fly (\textit{e.g.}, using a
+	variable that holds the name of a variable that you want to
+	set) and execute it.
+\item[\code{exec} \textit{command}]
+	Runs the specified command, and replaces the current shell
+	with it. That is, nothing after the \code{exec} statement will
+	be executed, unless the \code{exec} itself fails.
+\item[\code{exit} {[\textit{n}]}]
+	Exit the current shell with exit code \textit{n}. This
+	defaults to zero.
+\item[\code{kill} {[\code{-}\textit{sig}]} \code{\%}\textit{job}]
+	Send signal \textit{sig} to the specified job. \textit{sig}
+	can be either numeric or symbolic. \code{kill -l} lists all
+	available signals. By default, \textit{sig} is SIGTERM (15).
+\item[\code{read} \textit{name\ldots}]
+	Reads one line from standard input and assigns it to the
+	variable \textit{name}. If several variables \textit{name1},
+	\textit{name2}, \textit{name3} etc. are specified, then the
+	first word of the line read is assigned to \textit{name1}, the
+	second to \textit{name2}, and so forth. Any remaining words
+	are assigned to the last variable.
+%\item[\code{readonly}]
+\item[\code{set} {[\code{+}/\code{-}\textit{flag}]} {[\textit{arg}]}]
+	With no arguments, prints the values of all variables.
+
+	\code{set -}\textit{x} turns on the \textit{x} option to \sh;
+	\code{set +}\textit{x} turns it off.
+
+	\code{set} \textit{args\ldots} sets the command-line arguments
+	to \textit{args}.
+\item[\code{test} \textit{expression}]
+	Evaluates a boolean expression and exits with an exit code of
+	zero if it is true, or non-zero if it is false. See Section
+	\ref{test} for more details.
+\item[\code{trap} {[\textit{command} \textit{sig}]}\ldots]
+	If signal \textit{sig} is sent to the shell, execute
+	\textit{command}. This is useful for exiting cleanly
+	(\textit{e.g.}, removing temporary files etc.) when the script
+	is interrupted.
+\item[\code{ulimit}]
+	Print or set system limits on resource usage.
+\item[\code{umask} {[\textit{nnn}]}]
+	Sets the umask to \textit{nnn} (an octal number). With no
+	argument, prints the current umask. This is most useful when
+	you want to create files, but want to restrict who can read or
+	write them.
+\item[\code{wait} {[\textit{n}]}]
+	Wait for the background process whose PID is \textit{n} to
+	terminate. With no arguments, waits for all of the background
+	processes to terminate.
+\end{description}
+
+	Bear in mind that the list of builtins varies from one
+implementation to another, so don't take this list as authoritative.
+
+\section{Flow control}
+% XXX - Slide
+
+	\sh\ supports several flow-control constructs, which add power
+and flexibility to your scripts.
+
+\subsection{\code{if}}
+
+	The \code{if} statement is a simple conditional. You've seen
+it in every programming language. Its syntax is
+\begin{quote}
+\begin{tabbing}
+\code{if} \= \textit{condition} \code{; then}\\
+	\> \textit{commands}\\
+$[$\code{elif} \textit{condition} \code{; then}\\
+	\> \textit{commands}$]\ldots$\\
+$[$\code{else}\\
+	\> \textit{commands}$]$\\
+\code{fi}
+\end{tabbing}
+\end{quote}
+That is, an if-block, optionally followed by one or more elif-blocks
+(\code{elif} is short for ``else if''), optionally followed by an
+else-block, and terminated by \code{fi}.
+
+	The \code{if} statement pretty much does what you'd expect: if
+\textit{condition} is true, it executes the if-block. Otherwise, it
+executes the else-block, if there is one. The \code{elif} construct is
+just syntactic sugar, to let you avoid nesting multiple if statements.
+
+\begin{slide}{\code{if}}
+\begin{verbatim}
+#!/bin/sh
+myname=`whoami`
+
+if [ $myname = root ]; then
+        echo "Welcome to FooSoft 3.0"
+else
+        echo "You must be root to run this script"
+        exit 1
+fi
+\end{verbatim}%$
+\end{slide}
+
+	The more observant among you (or those who are math majors)
+are thinking, ``Hey! You forgot to include the square brackets in the
+syntax definition!''
+
+	Actually, I didn't: [ is actually a command, \fname{/bin/[},
+and is another name for the \fname{test} command%
+\footnote{This is why you shouldn't call a test program \fname{test}:
+if you have ``.'' at the end of your path, as you should, executing
+\code{test} will run \fname{/bin/test}.}. See Section \ref{test} for
+the details on the \fname{test} command.
+
+	The \textit{condition} can actually be any command. If it
+returns a zero exit status, the condition is true; otherwise, it is
+false. Thus, you can write things like
+\begin{quote}
+\begin{verbatim}
+#!/bin/sh
+user=arnie
+if grep $user /etc/passwd; then
+        echo "$user has an account"
+else
+        echo "$user doesn't have an account"
+fi
+\end{verbatim}%$
+\end{quote}
+
+\subsection{\code{while}}
+
+	The \code{while} statement should also be familiar to you from
+any number of other programming languages. Its syntax in \sh\ is
+\begin{quote}
+\begin{tabbing}
+\code{while} \= \textit{condition}\code{; do}\\
+	\> \textit{commands}\\
+\code{done}
+\end{tabbing}
+\end{quote}
+
+	As you might expect, the \code{while} loop executes commands
+as long as \textit{condition} is true. Again, \textit{condition} can
+be any command, and is true if the command exits with a zero exit
+status.
+
+	A \code{while} loop may contain two special commands:
+\code{break} and \code{continue}.
+
+	\code{break} exits the \code{while} loop immediately, jumping
+to the next statement after the \code{done}.
+
+	\code{continue} skips the rest of the body of the loop, and
+jumps back to the top, to where \textit{condition} is evaluated.
+
+\subsection{\code{for}}
+
+	The \code{for} loop iterates over all of the elements in a
+list. Its syntax is
+\begin{quote}
+\begin{tabbing}
+\code{for} \= \textit{var} \code{in} \textit{list}\code{; do}\\
+	\> \textit{commands}\\
+\code{done}
+\end{tabbing}
+\end{quote}
+
+	\textit{list} is zero or more words. The \code{for} construct
+will assign the variable \textit{var} to each word in turn, then
+execute \textit{commands}. For example:
+
+\begin{quote}
+\begin{verbatim}
+#!/bin/sh
+for i in foo bar baz "do be do"; do
+        echo "\$i: $i"
+done
+\end{verbatim}%$
+\end{quote}
+will print
+\begin{quote}
+\begin{verbatim}
+$i: foo
+$i: bar
+$i: baz
+$i: do be do
+\end{verbatim}%$
+\end{quote}
+
+	A \code{for} loop may also contain \code{break} and
+\code{continue} statements. They work the same way as in the
+\code{while} loop.
+
+\subsection{\code{case}}
+
+	\label{case}
+	The \code{case} construct works like C's \code{switch}
+statement, except that it matches patterns instead of numerical
+values. Its syntax is
+\begin{quote}
+\begin{tabbing}
+\code{case} \= \textit{expression} \code{in}\\
+	\> \textit{pattern}\code{)} \= \\
+		\>\> \textit{commands}\\
+		\>\> \code{;;}\\
+	\> \ldots\\
+\code{esac}
+\end{tabbing}
+\end{quote}
+
+	\textit{expression} is a string; this is generally either a
+variable or a backquoted command.
+
+	\textit{pattern} is a glob pattern (see Section
+\ref{glob}).
+
+	The patterns are evaluated in the order in which they are
+seen, and only the first pattern that matches will be executed. Often,
+you'll want to include a ``none of the above'' clause; to do this, use
+\code{*} as your last pattern.
+
+\section{I/O redirection}
+
+	\label{io-redirection} A command's input and/or output may be
+redirected to another command or to a file. By default, every process
+has three file descriptors: standard input (0), standard output (1)
+and standard error (2). By default, each of these is connected to the
+user's terminal.
+
+	However, one can do many interesting things by redirecting one
+or more file descriptor:
+
+\begin{description}
+\item[\code{<} \textit{filename}]
+	Connect standard input to the file \textit{filename}. This
+	allows you to have a command read from the file, rather than
+	having to type its input in by hand.
+\item[\code{>} \textit{filename}]
+	Connect standard output to the file \textit{filename}. This
+	allows you to save the output of a command to a file. If the
+	file does not exist, it is created. If it does exist, it is
+	emptied before anything happens.
+
+	(Exercise: why doesn't \code{cat * > zzzzzzz} work the way
+	you'd expect?)
+\item[\code{>>} \textit{filename}]
+	Connects standard output to the file \textit{filename}. Unlike
+	\code{>}, however, the output of the command is appended to
+	\textit{filename}.
+\item[\code{<<}\textit{word}]
+	This construct isn't used nearly as often as it could be. It
+	causes the command's standard input to come from\ldots
+	standard input, but only until \textit{word} appears on a line
+	by itself. Note that there is no space between \code{<<} and
+	\textit{word}.
+
+	This can be used as a mini-file within a script,
+	\textit{e.g.},
+	\begin{quote}
+	\begin{verbatim}
+	cat > foo.c <<EOT
+	#include <stdio.h>
+
+	main()
+	{
+		printf("Hello, world!\n");
+	}
+	EOT
+	\end{verbatim}
+	\end{quote}
+
+	It is also useful for printing multiline messages,
+	\textit{e.g.}:
+	\begin{quote}
+	\begin{verbatim}
+	line=13
+	cat <<EOT
+	An error occurred on line $line.
+	See page 98 of the manual for details.
+	EOT
+	\end{verbatim}%$
+	\end{quote}
+
+	As this example shows, by default, \code{<<} acts like double
+	quotes (\textit{i.e.}, variables are expanded). If, however,
+	\textit{word} is quoted, then \code{<<} acts like single
+	quotes.
+\item[\code{<\&}\textit{digit}]
+	Use file descriptor \textit{digit} as standard input.
+\item[\code{>\&}\textit{digit}]
+	Use file descriptor \textit{digit} as standard output.
+\item[\code{<\&-}]
+	Close standard input.
+\item[\code{>\&-}]
+	Close standard output.
+\item[\textit{command1} \code{|} \textit{command2}]
+	Creates a pipeline: the standard output of \textit{command1}
+	is connected to the standard input of \textit{command2}. This
+	is functionally identical to
+	\begin{quote}
+	\textit{command1} \code{> /tmp/foo}\\
+	\textit{command2} \code{< /tmp/foo}
+	\end{quote}
+	except that no temporary file is created, and both commands
+	can run at the same time%
+	\footnote{There is a proverb that says, ``A temporary file is
+	just a pipe with an attitude and a will to live.''}.
+
+	Any number of commands can be pipelined together.
+\item[\textit{command1} \code{\&\&} \textit{command2}]
+	Execute \textit{command1}. Then, if it exited with a zero
+	(true) exit status, execute \textit{command2}.
+\item[\textit{command1} \code{||} \textit{command2}]
+	Execute \textit{command1}. Then, if it exited with a non-zero
+	(false) exit status, execute \textit{command2}.
+\end{description}
+
+	If any of the redirection constructs is preceded by a digit,
+then it applies to the file descriptor with that number, rather than
+the default (0 or 1, as the case may be). For instance,
+\begin{quote}
+\textit{command} \code{2>\&1 >} \textit{filename}
+\end{quote}
+associates file descriptor 2 (standard error) with the same file as
+file descriptor 1 (standard output), then redirects both of them to
+\textit{filename}.
+
+	This is also useful for printing error messages:
+\begin{quote}
+\code{echo "Danger! Danger Will Robinson!" 1>\&2}
+\end{quote}
+
+	Note that I/O redirections are parsed in the order they are
+encountered, from left to right. This allows you to do fairly tricky
+things, including throwing out standard output, and piping standard
+output to a command.
+
+\section{Functions}
+
+	When a group of commands occurs several times in a script, it
+is useful to define a function. Defining a function is a lot like
+creating a mini-script within a script.
+
+	A function is defined using
+\begin{quote}
+\begin{tabbing}
+\textit{name} \= \code{() \{}\\
+	\> \textit{commands}\\
+\code{\}}
+\end{tabbing}
+\end{quote}
+and is invoked like any other command:
+\begin{quote}
+\textit{name} \textit{args\ldots}
+\end{quote}
+
+	You can redirect a function's I/O, embed it in backquotes,
+etc., just like any other command.
+
+	One way in which functions differ from external scripts is
+that the shell does not spawn a subshell to execute them. This means
+that if you set a variable inside a function, the new value will be
+visible outside of the function.
+
+	A function can use \code{return}~\textit{n} to terminate with
+an exit status of \textit{n}. Obviously, it can also
+\code{exit}~\textit{n}, but that would terminate the entire script.
+
+\subsection{Function arguments}
+
+	A function can take command-line arguments, just like any
+script. Intuitively enough, these are available through \$1,
+\$2\ldots\$9 just like the main script.
+
+\section{Useful utilities}
+
+	There are a number of commands that aren't part of \sh, but
+are often used inside \sh\ scripts. These include:
+
+\subsection{basename}
+
+	\code{basename} \textit{pathname} prints the last component of
+\textit{pathname}:
+\begin{quote}
+\begin{verbatim}
+basename /foo/bar/baz
+\end{verbatim}
+\end{quote}
+prints
+\begin{quote}
+\begin{verbatim}
+baz
+\end{verbatim}
+\end{quote}
+
+\subsection{dirname}
+
+	The complement of \code{basename}:
+\code{dirname}~\textit{pathname} prints all but the last component of
+\textit{pathname}, that is the directory part:
+\textit{pathname}:
+\begin{quote}
+\begin{verbatim}
+dirname /foo/bar/baz
+\end{verbatim}
+\end{quote}
+prints
+\begin{quote}
+\begin{verbatim}
+/foo/bar
+\end{verbatim}
+\end{quote}
+
+\subsection{\code{[}}
+
+	\label{test} \code{/bin/[} is another name for
+\code{/bin/test}. It evaluates its arguments as a boolean expression,
+and exits with an exit code of 0 if it is true, or 1 if it is false.
+
+	If \code{test} is invoked as \code{[}, then it requires a
+closing bracket \code{]} as its last argument. Otherwise, there must
+be no closing bracket.
+
+	\code{test} understands the following expressions, among
+others:
+
+\begin{description}
+\item[\code{-e} \textit{filename}]
+	True if \textit{filename} exists.
+\item[\code{-d} \textit{filename}]
+	True if \textit{filename} exists and is a directory.
+\item[\code{-f} \textit{filename}]
+	True if \textit{filename} exists and is a plain file.
+\item[\code{-h} \textit{filename}]
+	True if \textit{filename} exists and is a symbolic link.
+\item[\code{-r} \textit{filename}]
+	True if \textit{filename} exists and is readable.
+\item[\code{-w} \textit{filename}]
+	True if \textit{filename} exists and is writable.
+\item[\code{-n} \textit{string}]
+	True if the length of \textit{string} is non-zero.
+\item[\code{-z} \textit{string}]
+	True if the length of \textit{string} is zero.
+\item[\textit{string}]
+	True if \textit{string} is not the empty string.
+\item[\textit{s1} \code{=} \textit{s2}]
+	True if the strings \textit{s1} and \textit{s2} are identical.
+\item[\textit{s1} \code{!=} \textit{s2}]
+	True if the strings \textit{s1} and \textit{s2} are not
+	identical.
+\item[\textit{n1} \code{-eq} \textit{n2}]
+	True if the numbers \textit{n1} and \textit{n2} are equal.
+\item[\textit{n1} \code{-ne} \textit{n2}]
+	True if the numbers \textit{n1} and \textit{n2} are not equal.
+\item[\textit{n1} \code{-gt} \textit{n2}]
+	True if the number \textit{n1} is greater than \textit{n2}.
+\item[\textit{n1} \code{-ge} \textit{n2}]
+	True if the number \textit{n1} is greater than or equal to
+	\textit{n2}.
+\item[\textit{n1} \code{-lt} \textit{n2}]
+	True if the number \textit{n1} is less than \textit{n2}.
+\item[\textit{n1} \code{-le} \textit{n2}]
+	True if the number \textit{n1} is less than or equal to
+	\textit{n2}.
+\item[\code{!} \textit{expression}]
+	Negates \textit{expression}, that is, returns true iff
+	\textit{expression} is false.
+\item[\textit{expr1} \code{-a} \textit{expr2}]
+	True if both expressions, \textit{expr1} and \textit{expr2}
+	are true.
+\item[\textit{expr1} \code{-o} \textit{expr2}]
+	True if either expression, \textit{expr1} or \textit{expr2} is
+	true.
+\item[\code{(} \textit{expression} \code{)}]
+	True if \textit{expression} is true. This allows one to nest
+	expressions.
+\end{description}
+
+	Note that lazy evaluation does not apply, since all of the
+arguments to \code{test} are evaluated by \sh\ before being passed to
+\code{test}. If you stand to benefit from lazy evaluation, use
+nested \code{if}s.
+
+\subsection{echo}
+
+	\code{echo} is a built-in in most implementations of \sh, but
+it also exists as a standalone command.
+
+	\code{echo} simply prints its arguments to standard output. It
+can also be told not to append a newline at the end: under BSD-like
+flavors of Unix, use
+\begin{quote}
+\code{echo -n "}\textit{string}\code{"}
+\end{quote}
+Under SystemV-ish flavors of Unix, use
+\begin{quote}
+\code{echo "}\textit{string}\code{\bs c"}
+\end{quote}
+
+\subsection{awk}
+
+	\fname{Awk} (and its derivatives, \fname{nawk} and
+\fname{gawk}) is a full-fledged scripting language. Inside \sh\
+scripts, it is generally used for its ability to split input lines
+into fields and print one or more fields. For instance, the following
+reads \fname{/etc/passwd} and prints out the name and uid of each
+user:
+\begin{quote}
+\begin{verbatim}
+awk -F : '{print $1, $3 }' /etc/passwd
+\end{verbatim}
+\end{quote}
+
+	The \code{-F :} option says that the input records are
+separated by colons. By default, \fname{awk} uses whitespace as the
+field separator.
+
+\subsection{sed}
+
+	\fname{Sed} (stream editor) is also a full-fledged scripting
+language, albeit a less powerful and more convoluted one than
+\fname{awk}. In \sh\ scripts, \fname{sed} is mainly used to do string
+substitution: the following script reads standard input, replaces all
+instances of ``foo'' with ``bar'', and writes the result to standard
+output:
+\begin{quote}
+\begin{verbatim}
+sed -e 's/foo/bar/g'
+\end{verbatim}
+\end{quote}
+
+	The trailing \code{g} says to replace all instances of ``foo''
+with ``bar'' on a line. Without it, only the first instance would be
+replaced.
+
+\subsection{tee}
+
+	\code{tee} [\code{-a}] \textit{filename} reads standard input,
+copies it to standard output, and saves a copy in the file
+\textit{filename}.
+
+	By default, \code{tee} empties \textit{filename} before it
+begins. With the \code{-a} option, it appends to \textit{filename}.
+
+\section{Debugging}
+
+	Unfortunately, there are no symbolic debuggers such as
+\fname{gdb} for \sh\ scripts. When you're debugging a script, you'll
+have to rely the tried and true method of inserting trace statements,
+and using some useful options to \sh:
+
+	The \code{-n} option causes \sh\ to read the script but not
+execute any commands. This is useful for checking syntax.
+
+	The \code{-x} option causes \sh\ to print each command to
+standard error before executing it. Since this can generate a lot of
+output, you may want to turn tracing on just before the section that
+you want to trace, and turn it off immediately afterward:
+\begin{quote}
+\begin{verbatim}
+set -x
+# XXX - What's wrong with this code?
+grep $user /etc/passwd 1>&2 > /dev/null
+set +x
+\end{verbatim}%$
+\end{quote}
+
+\section{Style}
+
+	Here follow a few tips on style, as well as one or two tricks
+that you may find useful.
+
+\subsection{Prefer simple, linear application}
+
+	The advantages of \sh\ are that it is portable (it is found on
+every flavor of Unix, and is reasonably standard from one
+implementation to the next), and can do most things that you may want
+to do with it. However, it is not particularly fast, and there are no
+good debugging tools for \sh\ scripts.
+
+	Therefore, it is best to keep things simple and linear: do A,
+then do B, then do C, and exit. If you find yourself writing many
+nested loops, or building \fname{awk} scripts on the fly, you're
+probably better off rewriting it in \fname{Perl} or C.
+
+\subsection{Put customization variables at the top}
+
+	If there's any chance that your script will need to be
+modified in a predictable way, then put a customization variable near
+the top of the script. For instance, if you need to run \fname{gmake},
+you might be tempted to write
+\begin{quote}
+\code{\#!/bin/sh}\\
+\ldots300 lines further down\ldots\\
+\code{/usr/local/bin/gmake foo}
+\end{quote}
+However, someone else might have \fname{gmake} installed somewhere
+else, so it is better to write
+\begin{quote}
+\code{\#!/bin/sh}\\
+\code{GMAKE=/usr/local/bin/gmake}\\
+\ldots300 lines further down\ldots\\
+\code{\$GMAKE foo}
+\end{quote}
+
+\subsection{Don't go overboard with functions}
+
+	Functions are neat, but \sh\ is not Pascal or C. In
+particular, don't try to encapsulate everything inside a function, and
+avoid having functions call each other. I once had to debug a script
+where the function calls were six deep at times. It wasn't pretty.
+
+\subsection{Multi-line strings}
+
+	Remember that you can put newlines in single- or double-quoted
+strings. Feel free to use this fact if you need to print out a
+multi-line error message.
+
+\subsection{Use \code{: \$\{}VAR\code{:=}value\code{\}} to set defaults}
+
+	Let's say that your script allows the user to edit a file. It
+might be tempting to include the line
+\begin{quote}
+\begin{verbatim}
+vi $filename
+\end{verbatim}%$
+\end{quote}
+in your script. But let's say that the user prefers to use
+\fname{Emacs} as his editor. In this case, he can set \code{\$VISUAL}
+to indicate his preference.
+
+	However,
+\begin{quote}
+\begin{verbatim}
+$VISUAL $filename
+\end{verbatim}
+\end{quote}
+is no good either, because \code{\$VISUAL} might not be set.
+
+	So use
+\begin{quote}
+\begin{verbatim}
+: ${VISUAL:=vi}
+$VISUAL $filename
+\end{verbatim}%$
+\end{quote}
+to set \code{\$VISUAL} to a reasonable default, if the user hasn't set
+it.
+
+\section{Paranoia}
+
+	As with any programming language, it is very easy to write \sh
+scripts that don't do what you want, so a healthy dose of paranoia is
+a good thing. In particular, scripts that take input from the user
+must be able to handle any kind of input. CGI-bin scripts will almost
+certainly be given not only incorrect, but malicious input. Errors in
+scripts that run as root or bin can cause untold damage as well.
+
+\subsection{Setuid scripts}
+
+\begin{center}
+\Huge{DON'T}
+\end{center}
+
+	As we saw in section \ref{os-script}, the way scripts work,
+Unix opens the file to find out which program will be the file's
+interpreter. It then invokes the interpeter, and passes it the
+script's pathname as a command line argument. The interpreter then
+opens the file, reads it, and executes it.
+
+	From the above, you can see that there is a delay between when
+the OS opens the script, and when the interpreter opens it. This means
+that there is a race condition that an attacker can exploit: create a
+symlink that points to the setuid script; then, after the OS has
+determined the interpeter, but before the interpreter opens the file,
+replace that symlink with some other script of your choice. Presto!
+Instant root shell!
+
+	This problem is inherent to the way scripts are processed, and
+therefore cannot easily be fixed.
+
+	Compiled programs do not suffer from this problem, since
+\cmd{a.out} (compiled executable) files are not closed then reopened,
+but directly loaded into memory. Hence, if you have an application
+that needs to be setuid, but is most easily written as a script, you
+can write a wrapper in C that simply \cmd{exec}s the script. You still
+need to watch out for the usual problems that involve writing setuid
+programs, and you have to be paranoid when writing your script, but
+all of these problems are surmountable. The double-open problem is
+not.
+
+\subsection{\code{\$IFS}}
+
+	The very first statement in your script should be
+\begin{quote}
+\begin{verbatim}
+IFS=
+\end{verbatim}
+\end{quote}
+which resets the input field separator to its default
+value. Otherwise, you inherit \code{\$IFS} from the user, who may have
+set it to some bizarre value in order to make \sh\ parse strings
+differently from the way you expect, and induce weird behavior.
+
+\subsection{\code{\$PATH}}
+
+	Right after you set \code{\$IFS}, make sure you set the
+execution path. Otherwise, you inherit it from the user, who may not
+have it set to the same value as you do.
+
+	In particular, the user might have ``.'' (dot) as the first
+element of his path, and put a program called \fname{ls} or
+\fname{grep} in the current directory, with disastrous results.
+
+	In general, never put ``.'' or any other relative directory on
+your path.
+
+	I like to begin by putting the line
+\begin{quote}
+\begin{verbatim}
+PATH=
+\end{verbatim}
+\end{quote}
+at the top of a new script, then add directories to it as necessary
+(and only add those directories that \emph{are} necessary).
+
+\subsection{Quoted variables}
+
+	Remember that the expansion of a variable might include
+whitespace or other special characters, whether accidentally or on
+purpose. To guard against this, make sure you double-quote any
+variable that should be interpreted as a single word, or which might
+contain unusual characters (\textit{i.e.}, any user input, and
+anything derived from that).
+
+	I once had a script fail because a user had put a square
+bracket in his GCOS field in \fname{/etc/passwd}. You're best off just
+quoting everything, unless you know for sure that you shouldn't.
+
+\subsection{Potentially unset variables}
+
+	Remember that variables may not be set, or may be set to the
+null string. For instance, you may be tempted to write
+\begin{quote}
+\begin{verbatim}
+if [ $answer = yes ]; then
+\end{verbatim}%$
+\end{quote}
+
+\begin{sloppy}
+	However, \code{\$answer} might be set to the empty string, so
+\sh\ would see \code{if~[~=~yes~]; then}, which would cause an error.
+Better to write
+\begin{quote}
+\begin{verbatim}
+if [ "$answer" = yes ]; then
+\end{verbatim}%$
+\end{quote}
+\end{sloppy}
+
+	The danger here is that \code{\$answer} might be set to
+\code{-f}, so \sh\ would see \code{if~[~-f~=~yes~]; then}, which would
+also cause an error.
+
+	Therefore, write
+\begin{quote}
+\begin{verbatim}
+if [ x"$answer" = xyes ]; then
+\end{verbatim}%$
+\end{quote}
+which avoids both of these problems.
+
+\section{What about the C shell?}
+
+	The C shell, \fname{csh}, and its variant \fname{tcsh} is a
+fine interactive shell (I use \fname{tcsh}), but is a lousy shell for
+writing scripts. See Tom Christiansen's ariticle, ``Csh Programming
+Considered Harmful'' for the gory details.
+
+\end{document}
