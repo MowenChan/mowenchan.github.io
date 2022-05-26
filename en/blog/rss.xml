@@ -4,10 +4,21 @@
         <title>BakuPub Blog</title>
         <link>https://mowenchan.github.io/en/blog</link>
         <description>BakuPub Blog</description>
-        <lastBuildDate>Thu, 14 Apr 2022 00:00:00 GMT</lastBuildDate>
+        <lastBuildDate>Sat, 07 May 2022 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
         <generator>https://github.com/jpmonette/feed</generator>
         <language>en</language>
+        <item>
+            <title><![CDATA[色彩进阶]]></title>
+            <link>https://mowenchan.github.io/en/blog/color-adv</link>
+            <guid>color-adv</guid>
+            <pubDate>Sat, 07 May 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[a remark about color]]></description>
+            <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mojV" id="收集色卡">收集色卡<a class="hash-link" href="#收集色卡" title="Direct link to heading">​</a></h2><ul><li>amazon <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #000000 0%, #166d3b 74%)"></div></li><li>fresh <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffffff 0%, #378b29 74%)"></div></li><li>tree <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #74d680 0%, #378b29 74%)"></div></li><li>soda <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffdd00 0%, #fbb034 74%)"></div></li><li>warm beer <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffc719 0%, #bf033b 74%)"></div></li><li>Deep Water <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #04619f 0%, #000000 74%)"></div></li><li>Henry Fielding <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ececec 0%, #44355b 74%)"></div></li></ul>]]></content:encoded>
+            <author>mowenchan@outlook.com (Trace Chen)</author>
+            <category>chat</category>
+            <category>talk</category>
+        </item>
         <item>
             <title><![CDATA[大扫除]]></title>
             <link>https://mowenchan.github.io/en/blog/house-cleaning</link>

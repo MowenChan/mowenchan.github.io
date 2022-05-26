@@ -2,11 +2,25 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://mowenchan.github.io/en/blog</id>
     <title>BakuPub Blog</title>
-    <updated>2022-04-14T00:00:00.000Z</updated>
+    <updated>2022-05-07T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://mowenchan.github.io/en/blog"/>
     <subtitle>BakuPub Blog</subtitle>
-    <icon>https://mowenchan.github.io/en/img/favicon.ico</icon>
+    <icon>https://mowenchan.github.io/en/img/tapirhoof.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[色彩进阶]]></title>
+        <id>color-adv</id>
+        <link href="https://mowenchan.github.io/en/blog/color-adv"/>
+        <updated>2022-05-07T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[a remark about color]]></summary>
+        <content type="html"><![CDATA[<h2 class="anchor anchorWithStickyNavbar_mojV" id="收集色卡">收集色卡<a class="hash-link" href="#收集色卡" title="Direct link to heading">​</a></h2><ul><li>amazon <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #000000 0%, #166d3b 74%)"></div></li><li>fresh <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffffff 0%, #378b29 74%)"></div></li><li>tree <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #74d680 0%, #378b29 74%)"></div></li><li>soda <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffdd00 0%, #fbb034 74%)"></div></li><li>warm beer <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ffc719 0%, #bf033b 74%)"></div></li><li>Deep Water <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #04619f 0%, #000000 74%)"></div></li><li>Henry Fielding <div style="height:50px;width:50px;background-image:linear-gradient(315deg, #ececec 0%, #44355b 74%)"></div></li></ul>]]></content>
+        <author>
+            <name>Trace Chen</name>
+            <email>mowenchan@outlook.com</email>
+        </author>
+        <category label="chat" term="chat"/>
+        <category label="talk" term="talk"/>
+    </entry>
     <entry>
         <title type="html"><![CDATA[大扫除]]></title>
         <id>house-cleaning</id>
