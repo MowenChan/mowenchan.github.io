@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkbakupub=self.webpackChunkbakupub||[]).push([[4563],{58949:function(u){u.exports=JSON.parse('{"allTagsPath":"/en/blog/tags","name":"docusaurus-v2","count":1,"permalink":"/en/blog/tags/docusaurus-v-2"}')}}]);

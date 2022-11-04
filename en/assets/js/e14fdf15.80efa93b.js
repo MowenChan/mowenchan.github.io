@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbakupub=self.webpackChunkbakupub||[]).push([[5441],{1795:e=>{e.exports=JSON.parse('{"permalink":"/en/blog/tags/svg","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

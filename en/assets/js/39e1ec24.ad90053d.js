@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkbakupub=self.webpackChunkbakupub||[]).push([[1104],{19695:function(a){a.exports=JSON.parse('{"allTagsPath":"/en/blog/tags","name":"chat","count":2,"permalink":"/en/blog/tags/chat"}')}}]);

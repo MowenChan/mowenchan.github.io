@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkbakupub=self.webpackChunkbakupub||[]).push([[3355],{94696:function(e){e.exports=JSON.parse('{"permalink":"/blog/tags/docusaurus-v-2","page":1,"postsPerPage":10,"totalPages":1,"totalCount":1,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);

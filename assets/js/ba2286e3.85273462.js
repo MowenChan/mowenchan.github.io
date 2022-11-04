@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkbakupub=self.webpackChunkbakupub||[]).push([[2010],{8484:s=>{s.exports=JSON.parse('{"label":"css\uff0ccolor","permalink":"/blog/tags/css\uff0ccolor","allTagsPath":"/blog/tags","count":1}')}}]);
